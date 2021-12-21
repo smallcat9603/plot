@@ -20,7 +20,7 @@ $ gnuplot -e "load 'xxx.gnuplot'"
 * win10
 ```shell
 # enter gnuplot environment 
-> cd "C:/Users/PC/Documents/GitHub/plot/gnuplot" # # where .gnuplot and data files (e.g., .txt) exist so that relative path can be used in .gnuplot; do not forget " "
+> cd "C:/Users/PC/Documents/GitHub/plot/gnuplot" # where .gnuplot and data files (e.g., .txt) exist so that relative path can be used in .gnuplot; do not forget " "
 > load 'xxx.gnuplot' 
 ```
 
