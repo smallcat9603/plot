@@ -28,35 +28,35 @@ $ gnuplot -e "load 'xxx.gnuplot'"
 
 * [curve.gnuplot](gnuplot/curve.gnuplot)
 <div align=center>
-<img src="gnuplot/curve.png" width=256 />
+<img src="gnuplot/curve.png" width=512 />
 </div>
 
 * [histograms.gnuplot](gnuplot/histograms.gnuplot)
 <div align=center>
-<img src="gnuplot/histograms.png" width=256 />
+<img src="gnuplot/histograms.png" width=512 />
 </div>
 
 * [3d.gnuplot](gnuplot/3d.gnuplot)
 <div align=center>
-<img src="gnuplot/3d.png" width=256 />
+<img src="gnuplot/3d.png" width=512 />
 </div>
 
 * [horizon.gnuplot](gnuplot/horizon.gnuplot)
 <div align=center>
-<img src="gnuplot/horizon.png" width=256 />
+<img src="gnuplot/horizon.png" width=512 />
 </div>
 
 * [multiplot.gnuplot](gnuplot/multiplot.gnuplot)
 <div align=center>
-<img src="gnuplot/multiplot.png" width=256 />
+<img src="gnuplot/multiplot.png" width=512 />
 </div>
 
 ### Misc
 * line-point
 <div align=center>
-<img src="gnuplot/line-point.png" width=256 />
+<img src="gnuplot/line-point.png" width=512 />
 </div>
 * fill-pattern
 <div align=center>
-<img src="gnuplot/fill-pattern.png" width=256 />
+<img src="gnuplot/fill-pattern.png" width=512 />
 </div>
