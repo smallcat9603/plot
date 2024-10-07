@@ -1,0 +1,20 @@
+@startuml
+' autonumber
+' autoactivate on
+participant Sender as s << (P, #ADD1B2) >>
+participant Receiver as r << (P, #ADD1B2) >>
+hnote over s #aqua: Compress
+rnote over s #99FF99: MPI_ISend
+s -> r : MPI_INT
+note right of s : Compression Size
+rnote over r #99FF99: MPI_IRecv
+rnote over s, r #FFAAAA: MPI_Waitall
+rnote over s #99FF99: MPI_ISend
+s -> r : MPI_UNSIGNED_CHAR
+note right of s: Compressed Data
+s -> r : MPI_DOUBLE
+note right of s: Diff. Information
+rnote over r #99FF99: MPI_IRecv
+rnote over s, r #FFAAAA: MPI_Waitall
+hnote over r #aqua: Decompress
+@enduml

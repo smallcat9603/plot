@@ -1,0 +1,20 @@
+@startuml
+' autonumber
+' autoactivate on
+participant Server1 as s << (P, #ADD1B2) >>
+participant Server2 as r << (P, #ADD1B2) >>
+participant Server3 as t << (P, #ADD1B2) >>
+hnote over s #aqua: Walk Inside
+rnote over s #99FF99: MPI_Send
+s -> r : Walk Outside
+note right of s : MPI_INT
+rnote over r #99FF99: MPI_Recv
+hnote over r #aqua: Walk Inside
+rnote over r #99FF99: MPI_Send
+r -> t : Walk Outside
+note right of r : MPI_INT
+rnote over t #99FF99: MPI_Recv
+hnote over t #aqua: Walk Inside
+hnote over s, t #FFAAAA: ... Random Walks in Parallel ...
+rnote over s, t #99FF99: MPI_Gatherv
+@enduml

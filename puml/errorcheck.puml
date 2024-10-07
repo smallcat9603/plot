@@ -1,0 +1,35 @@
+@startuml
+' autonumber
+' autoactivate on
+participant Sender as s << (P, #ADD1B2) >>
+participant Receiver as r << (P, #ADD1B2) >>
+hnote over s #aqua: Compress
+hnote over s #FFAAAA: CRC & Hamming Coding
+s -> r : Compression Size
+note right of s : MPI_INT
+s -> r : Compressed Data
+note right of s: MPI_UNSIGNED_CHAR
+s -> r : Diff. Information
+note right of s: MPI_DOUBLE
+hnote over r #FFAAAA: CRC Verification
+alt CRC Succeeds 
+    r -> s : ACK = Success
+    hnote over r #aqua: Decompress
+else CRC Fails
+    hnote over r #FFAAAA: Hamming Verification
+    alt Single Bit Error 
+        hnote over r #FFAAAA: Error Correction
+        r -> s : ACK = Success
+        hnote over r #aqua: Decompress
+    else Multiple Bits Error 
+        r -[#red]> s : ACK = Failure
+        s -> r : Resend
+    end 
+end
+' r -> s : CRC Ack.
+' note left of r: MPI_UNSIGNED_CHAR
+' hnote over r #aqua: Decompress
+' alt ACK == Failure
+'     s -> r : Resend
+' end
+@enduml

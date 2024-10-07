@@ -1,0 +1,18 @@
+@startuml
+' autonumber
+' autoactivate on
+participant RECV as r << (T, #ADD1B2) >>
+queue RWer as qr << (Q, #FFAAAA) >>
+participant PROC as p << (T, #ADD1B2) >>
+queue Trans. as qt << (Q, #FFAAAA) >>
+participant SEND as s << (T, #ADD1B2) >>
+hnote over r #99FF99: Receive via UDP
+rnote over r #aqua: RECV_Thd Process
+r -> qr : Enqueue (randomly)
+qr -> p : Dequeue
+rnote over p #aqua: PROC_Thd Process
+p -> qt : Enqueue (by destination)
+qt -> s : Dequeue
+rnote over s #aqua: SEND_Thd Process
+hnote over s #99FF99: Send via UDP
+@enduml

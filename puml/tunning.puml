@@ -1,0 +1,50 @@
+@startmindmap
+*[#orange] Tunning
+** Topology
+*** degree (d) = 4
+**** Mesh
+**** Torus
+**** Random
+***** raw
+****** in-order 
+****** comm-aware
+******* stride (s) = 1
+******* s = 4
+***** aspl-opt
+***** bisec-opt
+*** d = 6
+*** d = 8
+** MPI
+*** ompi
+*** mpich
+*** mvapich2
+**[#OrangeRed] Collective
+*** alltoall
+**** bruck
+**** 2dmesh
+**** 3dmesh
+**** recursive-doubling 
+**** pair 
+**** ring
+**** basic-linear
+*** allreduce
+**** recursive-doubling
+**** logical-ring reduce-scatter-allgather
+**** reduce-scatter-allgather
+**** alltoall-allgather
+' **** recursive-doubling reduce-scatter-allgather 
+**** Rabenseifner algo
+*** allgather
+**** 2dmesh
+**** 3dmesh
+**** bruck
+**** pair
+**** recursive-doubling
+**** ring
+**** spread 
+*** bcast 
+**** binomial-tree 
+**** flat-tree 
+**** scatter-logical-ring-allgather 
+**** scatter-recursive-doubling-allgather
+@endmindmap
