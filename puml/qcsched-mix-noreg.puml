@@ -1,0 +1,64 @@
+@startuml
+!pragma teoz true
+autonumber
+' autoactivate on
+skinparam defaultFontSize 20
+
+participant HPC1 as h1
+participant HPC2 as h2
+participant HPC3 as h3
+
+box QC-HPC Coscheduler
+participant Sched as q << (Q, #ADD1B2) >>
+end box
+
+participant QC1 as q1
+participant QC2 as q2
+
+activate q
+
+h1 -[#red]> q : QC1 Req
+q -[#red]> q1 : QC1 Check \t\t\t\t
+q1 -[#red]> q : QC1 OK
+q -[#red]> h1 : QC1 OK
+
+h1 <-[#red]-> q1 : Job Start
+activate h1 #red
+activate q1 #red
+
+h2 -[#blue]> q : QC1 Req 
+q -[#blue]> q1 : QC1 Check
+q1 -[#blue]> q : QC1 NG
+q -[#blue]> h2 : QC1 NG
+
+h1 <-[#red]-> q1 : Job Finish
+deactivate h1
+deactivate q1
+
+h2 -[#blue]> q : QC1 (Re)Req 
+q -[#blue]> q1 : QC1 Check
+q1 -[#blue]> q : QC1 OK
+q -[#blue]> h2 : QC1 OK
+
+h2 <-[#blue]-> q1 : Job Start
+activate h2 #blue
+activate q1 #blue
+
+h3 -[#green]> q : QC2 Req \t\t\t\t
+q -[#green]> q2 : QC2 Check
+q2 -[#green]> q : QC2 OK
+q -[#green]> h3 #green: QC2 OK
+
+h3 <-[#green]-> q2 : Job Start
+activate h3 #green
+activate q2 #green
+
+h2 <-[#blue]-> q1 : Job Finish
+deactivate h2
+deactivate q1
+
+h3 <-[#green]-> q2 : Job Finish
+deactivate h3
+deactivate q2
+
+@enduml
