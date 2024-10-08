@@ -1,4 +1,5 @@
 @startuml
+!pragma teoz true
 autonumber
 ' autoactivate on
 skinparam defaultFontSize 20
@@ -16,41 +17,37 @@ actor User2 as u2
 ' end box
 
 activate q
+
 u1 -> h1 : Job Sub \t
-' h1 -> h1 : Queue In 
 h1 -> q : QC Req \t\t\t\t
-q -> q : QC Check (SP = 0)
-' rnote over q : SP++
-q -> h1 : <color #green>QC OK</color> 
+' q -> q : QC Check (OK)
+' hnote over q #FFBBBB: SF++
+{start1} q -> h1 : QC <color #green>OK</color> 
 
 activate q #FFBBBB
-' h1 -> h1 : Job Run
 activate h1 #DarkSalmon
 
 u2 -> h2 : Job Sub \t
-' h2 -> h2 : Queue In 
 h2 -> q : QC Req \t\t\t\t
-q -> q : QC Check (SP > 0)
-q -> h2 : <color #red>QC NG</color>
+' q -> q : QC Check (NG)
+q -> h2 : QC <color #red>NG</color>
 
-' h1 -> h1 : Job Fin
-
-h1 -> q : QC FIN
+{end1} h1 -> q : QC FIN
 deactivate h1
 deactivate q 
-' rnote over q : SP--
-h2 -> q : QC (Re)Req 
-q -> q : QC Check (SP = 0)
-' rnote over q : SP++
-q -> h2 : <color #green>QC OK</color> 
-activate q #FFBBBB
-h2 -> h2 : Job Run
-activate h2 #DarkSalmon
+{start1} <-> {end1} : Job Run
+' hnote over q : SF--
 
-h2 -> h2 : Job Fin
+h2 -> q : QC (Re)Req 
+' q -> q : QC Check (OK)
+' hnote over q #FFBBBB: SF++
+{start2} q -> h2 : QC <color #green>OK</color> 
+activate q #FFBBBB
+activate h2 #DarkSalmon
+{end2} h2 -> q : QC FIN
 deactivate h2
-h2 -> q : QC FIN
 deactivate q 
-' rnote over q : SP--
+{start2} <-> {end2} : Job Run
+' hnote over q : SF--
 
 @enduml
