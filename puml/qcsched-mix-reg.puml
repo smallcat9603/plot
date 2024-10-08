@@ -1,0 +1,71 @@
+@startuml
+!pragma teoz true
+autonumber
+' autoactivate on
+skinparam defaultFontSize 20
+
+participant HPC1 as h1
+participant HPC2 as h2
+participant HPC3 as h3
+
+box QC-HPC Coscheduler
+participant Sched as q << (Q, #ADD1B2) >>
+end box
+
+participant QC1 as q1
+participant QC2 as q2
+
+activate q
+
+h1 -[#red]> q : Reg QC1
+h2 -[#blue]> q : Reg QC1
+h3 -[#green]> q : Reg QC2
+
+' == init: qc1=0, qc2=0 ==
+
+rnote over q1 : sf1=0
+/ rnote over q2 : sf2=0
+
+q -[#red]> h1 : Run
+
+rnote right : sf1++
+
+h1 <-[#red]-> q1 : Job Start
+activate h1 #red
+activate q1 #red
+
+q -[#green]> h3 : Run \t\t\t\t
+
+rnote right : sf2++
+
+h3 <-[#green]-> q2 : Job Start
+activate h3 #green
+activate q2 #green
+
+deactivate h1
+deactivate q1
+h1 -[#red]> q : Job Finish
+
+rnote right : sf1--
+
+q -[#blue]> h2 : Run
+
+rnote right : sf1++
+
+h2 <-[#blue]-> q1 : Job Start
+activate h2 #blue
+activate q1 #blue
+
+deactivate h3
+deactivate q2
+h3 -[#green]> q : Job Finish
+
+rnote right : sf2--
+
+deactivate h2
+deactivate q1
+h2 -[#blue]-> q : Job Finish
+
+rnote right : sf1--
+
+@enduml
