@@ -1,0 +1,56 @@
+@startuml
+autonumber
+' autoactivate on
+skinparam defaultFontSize 20
+
+' box HPC Site
+actor User1 as u1
+participant HPC1 as h1
+' end box
+' box QC-HPC Coscheduler
+participant Sched as q << (Q, #ADD1B2) >>
+' end box
+' box HPC Site
+participant HPC2 as h2
+actor User2 as u2
+' end box
+
+activate q
+u1 -> h1 : Job Sub \t
+' h1 -> h1 : Queue In 
+h1 -> q : QC Req \t\t\t\t
+q -> q : QC Check (SP = 0)
+' rnote over q : SP++
+q -> h1 : <color #green>QC OK</color> 
+
+activate q #FFBBBB
+' h1 -> h1 : Job Run
+activate h1 #DarkSalmon
+
+u2 -> h2 : Job Sub \t
+' h2 -> h2 : Queue In 
+h2 -> q : QC Req \t\t\t\t
+q -> q : QC Check (SP > 0)
+q -> h2 : <color #red>QC NG</color>
+
+' h1 -> h1 : Job Fin
+
+h1 -> q : QC FIN
+deactivate h1
+deactivate q 
+' rnote over q : SP--
+h2 -> q : QC (Re)Req 
+q -> q : QC Check (SP = 0)
+' rnote over q : SP++
+q -> h2 : <color #green>QC OK</color> 
+activate q #FFBBBB
+h2 -> h2 : Job Run
+activate h2 #DarkSalmon
+
+h2 -> h2 : Job Fin
+deactivate h2
+h2 -> q : QC FIN
+deactivate q 
+' rnote over q : SP--
+
+@enduml
